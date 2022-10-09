@@ -14,10 +14,10 @@ public class Game {
         playerList.add(player);
     }
 
-    public boolean shoot(Player player, String xIndex, int yIndex) {
-        boolean asserted = player.getBoard().getCell(xIndex, yIndex).shoot();
+    public boolean shoot(Player origin, Player target, String xIndex, int yIndex) {
+        boolean asserted = target.getBoard().getCell(xIndex, yIndex).shoot();
         if (asserted) {
-            player.increaseScore();
+            origin.increaseScore();
         }
         return asserted;
     }

@@ -1,5 +1,5 @@
 package com.nice.naval_battle.models;
-//celda
+
 public class Cell {
 
     private int xAxis;
@@ -31,6 +31,7 @@ public class Cell {
     public String getyAxis() {
         return yAxis;
     }
+
     public void addShip(Ship ship) {
         this.ship = ship;
         hasShip = ship != null;
@@ -45,12 +46,12 @@ public class Cell {
     }
 
     public boolean shoot() {
-        if (state == CellState.EMPTY) {
-            state = CellState.FIRED;
-            return false;
-        } else if (hasShip) {
+        if (hasShip) {
             ship.setFired(true);
             return true;
+        } else if (state == CellState.EMPTY) {
+            state = CellState.FIRED;
+            return false;
         }
         return false;
     }

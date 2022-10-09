@@ -43,10 +43,10 @@ public class Board {
             for (int row = 0; row < size; row++) {
                 Cell cell = board[column][row];
                 String value = "E";
-                if (cell.hasShip()) {
-                    value = "S";
-                } else if (cell.getShip() != null && cell.getShip().isFired()) {
+                if (cell.getShip() != null && cell.getShip().isFired()) {
                     value = "X";
+                } else if (cell.hasShip()) {
+                    value = "S";
                 } else if (cell.getState() == CellState.FIRED) {
                     value = "W";
                 }
@@ -62,9 +62,9 @@ public class Board {
         boolean isValid = true;
         int horIndex = horizontalAxis.getHorIndex(cell.getyAxis());
         for (int index = 0; index < size; index++) {
-            int xIndex = horIndex + 1 + index;
-            int yIndex = cell.getxAxis();
-            if (xIndex > board.length || yIndex > board.length || board[yIndex][xIndex].hasShip()) {
+            int yIndex = horIndex;
+            int xIndex = cell.getxAxis() - 1 + index;
+            if (xIndex >= board.length || yIndex >= board.length/* || board[yIndex][xIndex].hasShip()*/) {
                 isValid = false;
             } else {
                 cells[index] = board[yIndex][xIndex];
@@ -81,9 +81,9 @@ public class Board {
         boolean isValid = true;
         int horIndex = horizontalAxis.getHorIndex(cell.getyAxis());
         for (int index = 0; index < size; index++) {
-            int xIndex = horIndex + 1;
-            int yIndex = cell.getxAxis() + index;
-            if (xIndex > size || yIndex > size || board[yIndex][xIndex].hasShip()) {
+            int yIndex = horIndex + index;
+            int xIndex = cell.getxAxis() - 1;
+            if (xIndex >= board.length || yIndex >= board.length /* || board[yIndex][xIndex].hasShip()*/) {
                 isValid = false;
             } else {
                 cells[index] = board[yIndex][xIndex];
@@ -96,7 +96,7 @@ public class Board {
     }
 
     public void addShip(Cell[] cells, Ship ship) {
-        for (int index = 0; index < cells.length ; index++) {
+        for (int index = 0; index < cells.length; index++) {
             int xIndex = cells[index].getxAxis() - 1;
             int yIndex = horizontalAxis.getHorIndex(cells[index].getyAxis());
             board[yIndex][xIndex].addShip(ship);

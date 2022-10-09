@@ -2,7 +2,6 @@ package com.nice.naval_battle.models;
 
 import java.util.List;
 
-// nave
 public class Ship {
 
     private Model model;
